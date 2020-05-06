@@ -247,6 +247,26 @@ var multiply = function(x, y) {
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods to arrive at an approximate quotient (ignore decimal endings).
 var divide = function(x, y) {
+  var isNeg = false;
+  if(x < 0){
+    x = -x;
+    isNeg = !isNeg;
+  }
+  if(y < 0){
+    y = -y;
+    isNeg = !isNeg;
+  }
+
+  if(y === 0){
+    return NaN;
+  }
+
+  if(x < y){
+    return 0;
+  }
+
+  var result = divide(x - y, y) + 1;
+  return isNeg? -result: result;
 };
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
@@ -255,6 +275,28 @@ var divide = function(x, y) {
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
 var gcd = function(x, y) {
+  // if x is negative OR y is negative
+  if(x < 0 || y < 0){
+    // return null
+    return null;
+  }
+  // if x is equal to y
+  if(x === y){
+    // return x
+    return x;
+  }
+
+  // if x is greater than y
+  if(x > y){
+    // [recursion] call the gcd function again by passing x-y and y, and return the result
+    return gcd(x-y, y);
+  }
+  // if x is less than y
+  if(x < y){
+    // [recursion] call the gcd function again by passing x and y-x, and return the result
+    return gcd(x, y-x);
+  }
+
 };
 
 // 15. Write a function that compares each character of two strings and returns true if
